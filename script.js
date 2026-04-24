@@ -6,7 +6,7 @@ document.getElementById('addTaskBtn').addEventListener('click', function () {
     // check if input is empty
     if (taskInput) {
         // add new task to task array
-        tasks.push(taskInput);
+        tasks.push({ text: taskInput, completed: false });
         // clear input field value
         document.getElementById('taskInput').value = '';
         // update task list display
@@ -43,28 +43,41 @@ function displayTasks() {
     taskList.innerHTML = '';
     // loop through each task in the array and create a list item for each
     tasks.forEach((task, index) => {
-        // create <li> element for each task in array
-        let li = document.createElement('li');
+    let li = document.createElement('li');
 
-        // add styling
-        li.classList.add(
-            'list-group-item',
-            'd-flex',
-            'justify-content-between',
-            'align-items-center'
-        )
+    li.classList.add(
+        'list-group-item',
+        'd-flex',
+        'justify-content-between',
+        'align-items-center',
+        'tasks'
+    );
 
-        // set inner html of list item with a task and remove btn
-        li.innerHTML = `${task} <button class='btn btn-warning btn-sm' onclick='removeTask(${index})'>✓</button>`;
+    // if completed make text white
+    // had to look up how to do
+    if (task.completed) {
+        li.style.color = 'white';
+    }
 
-        // append new task list to html
-        taskList.appendChild(li);
-    })
+    li.innerHTML = `${task.text} 
+    <button class='btn btn-sm' onclick='toggleTask(${index})'><b>✓</b></button>`;
+
+    taskList.appendChild(li);
+});
+    updateTaskCount();
 }
 
-function removeTask(index) {
-    // when click check, remove task
-    tasks.splice(index, 1);
+// when click check once, turn text white and if click again, remove task from list
+// had to look up some for help
+function toggleTask(index) {
+    if (!tasks[index].completed) {
+        // first click marks complete
+        tasks[index].completed = true;
+    } else {
+        // second click remove
+        tasks.splice(index, 1);
+    }
+
     displayTasks();
 }
 
@@ -74,6 +87,12 @@ document.getElementById('clearTaskBtn').addEventListener('click', function () {
     displayTasks();
 })
 
+
+// updates how many tasks
+function updateTaskCount() {
+    const count = tasks.length;
+    document.getElementById('taskCount').textContent = `Total Tasks: ${count}`;
+}
 
 
 

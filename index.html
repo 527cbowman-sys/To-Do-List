@@ -13,7 +13,9 @@
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="https://use.typekit.net/odu7pun.css">
         <link rel="stylesheet" href="styles.css" />
+        
     </head>
 
     <body>
@@ -23,29 +25,32 @@
         <main class="container mt-5">
             <div class="row justify-content-center">
 
-                <div class="col-md-8 com-lg-6 list">
+                <div class="col-md-12 com-lg-8 list">
                     <h2 class="text-center title mb-5">To-Do List</h2>
 
+                    
+
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-6 p-3">
                             <input type="text" id="taskInput" class="form-control" placeholder="Enter a task" />
                         </div>
-                        <div class="col-4">
+                        <div class="col-2 p-3">
                             <button id="addTaskBtn" class="btn addtask w-100">Add Task</button>
+                        </div>
+                        <div class="col-3 p-3">
+                            <button id="clearTaskBtn" class="btn clear w-100">Clear All Tasks</button>
+                        </div>
                     </div>
-                </div>
+        
                 <div class="row">
                     <div class="col-12">
-                        <ul id="taskList" class="list-group mt-4"></ul>
+                        <ul id="taskList" class="list-group tasks mt-4"></ul>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <button id="clearTaskBtn" class="btn clear w-100">Clear All Tasks</button>
-                    </div>
+                <p id="taskCount" class="text-center count mt-5">Total Tasks: 0</p>
                 </div>
                 </div>
-            </div>
+            
 
         </main>
         <footer>
