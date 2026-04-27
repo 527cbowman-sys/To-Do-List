@@ -60,7 +60,7 @@ function displayTasks() {
     }
 
     li.innerHTML = `${task.text} 
-    <button class='btn btn-sm' onclick='toggleTask(${index})'><b>✓</b></button>`;
+    <button class='btn check btn-sm' onclick='toggleTask(${index})'><b>✓</b></button>`;
 
     taskList.appendChild(li);
 });

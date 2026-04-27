@@ -70,6 +70,26 @@
     border: 3px solid rgb(255, 217, 244);
 }
 
+.check {
+    background-color: rgb(255, 183, 131);
+    border-radius: 25px;
+    border: 3px solid white;
+}
+.check:hover {
+    background-color: rgb(255, 143, 63);
+    border-radius: 25px;
+    border: 3px solid rgb(255, 200, 160);
+}
+
+
+/* had to look up to change blue ring around input box to nothing */
+input:focus, 
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: initial;
+}
+
 
 /* BACKGROUND */
 
