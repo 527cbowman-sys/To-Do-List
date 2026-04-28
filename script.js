@@ -1,4 +1,5 @@
 let tasks = []; //empty array to store tasks
+let completedTasks = []; //empty array to store completed tasks
 
 document.getElementById('addTaskBtn').addEventListener('click', function () {
     // get value from input field
@@ -6,7 +7,9 @@ document.getElementById('addTaskBtn').addEventListener('click', function () {
     // check if input is empty
     if (taskInput) {
         // add new task to task array
-        tasks.push({ text: taskInput, completed: false });
+        tasks.push(taskInput);
+        // add new value to completedTasks array
+        completedTasks.push(false);
         // clear input field value
         document.getElementById('taskInput').value = '';
         // update task list display
@@ -30,7 +33,9 @@ document.getElementById('taskInput').addEventListener('keydown', (e) => {
             document.getElementById('taskInput').value = '';
             // update task list display
             displayTasks();
+            completedTasks.push(false);
         }
+
 
     }
 })
@@ -43,47 +48,54 @@ function displayTasks() {
     taskList.innerHTML = '';
     // loop through each task in the array and create a list item for each
     tasks.forEach((task, index) => {
-    let li = document.createElement('li');
+        let li = document.createElement('li');
 
-    li.classList.add(
-        'list-group-item',
-        'd-flex',
-        'justify-content-between',
-        'align-items-center',
-        'tasks'
-    );
+        li.classList.add(
+            'list-group-item',
+            'd-flex',
+            'justify-content-between',
+            'align-items-center',
+            'tasks'
+        );
 
-    // if completed make text white
-    // had to look up how to do
-    if (task.completed) {
-        li.style.color = 'white';
-    }
 
-    li.innerHTML = `${task.text} 
-    <button class='btn check btn-sm' onclick='toggleTask(${index})'><b>✓</b></button>`;
 
-    taskList.appendChild(li);
-});
+        if (completedTasks[index] === true) {
+            li.classList.toggle('completed');
+        }
+
+        li.innerHTML = `
+    <span>${task}</span>
+    <div class="btn">
+        <button class='btn check btn-sm' onclick='completeTask(${index})'><b>✓</b></button>
+        <button class='btn x btn-sm' onclick='removeTask(${index})'><b>X</b></button>
+    </div>
+`;
+
+        taskList.appendChild(li);
+    });
     updateTaskCount();
 }
 
-// when click check once, turn text white and if click again, remove task from list
-// had to look up some for help
-function toggleTask(index) {
-    if (!tasks[index].completed) {
-        // first click marks complete
-        tasks[index].completed = true;
-    } else {
-        // second click remove
-        tasks.splice(index, 1);
-    }
-
+// when click check once, remove task from list
+function removeTask(index) {
+    // remove task from array
+    tasks.splice(index, 1);
+    
+    updateTaskCount();
     displayTasks();
+}
+
+function completeTask(index){
+    completedTasks[index] = !completedTasks[index];
+    displayTasks();
+ 
 }
 
 document.getElementById('clearTaskBtn').addEventListener('click', function () {
     // clear all tasks from array
     tasks = [];
+    completedTasks = [];
     displayTasks();
 })
 
@@ -100,7 +112,7 @@ function updateTaskCount() {
 
 const NUM_CLOUDS = 12;
 
-  for (let i = 0; i < NUM_CLOUDS; i++) {
+for (let i = 0; i < NUM_CLOUDS; i++) {
     const cloud = document.createElement("div");
     cloud.classList.add("cloud");
 
@@ -119,4 +131,4 @@ const NUM_CLOUDS = 12;
     cloud.style.animationDelay = (-Math.random() * duration) + "s";
 
     document.body.appendChild(cloud);
-  }
+}
